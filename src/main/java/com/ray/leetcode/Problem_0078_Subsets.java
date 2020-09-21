@@ -12,14 +12,14 @@ Note: The solution set must not contain duplicate subsets.
 * */
 public class Problem_0078_Subsets {
 	
-	public static List<List<Integer>> subsets(int[] nums) {
+	public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> res = new ArrayList<>();
 		backtrack(0, nums, res, new ArrayList<>());
 		return res;
 		
 	}
 	
-	private static void backtrack(int i, int[] nums, List<List<Integer>> res, ArrayList<Integer> tmp) {
+	private void backtrack(int i, int[] nums, List<List<Integer>> res, ArrayList<Integer> tmp) {
 		res.add(new ArrayList<>(tmp));
 		for (int j = i; j < nums.length; j++) {
 			tmp.add(nums[j]);
@@ -30,7 +30,8 @@ public class Problem_0078_Subsets {
 	
 	public static void main(String[] args) {
 		int[] arr = {1, 2, 3};
-		System.out.println(subsets(arr));
+		Problem_0078_Subsets solution = new Problem_0078_Subsets();
+		System.out.println(solution.subsets(arr));
 	}
 	
 }

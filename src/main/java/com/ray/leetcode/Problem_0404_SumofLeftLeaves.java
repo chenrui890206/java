@@ -16,7 +16,7 @@ There are two left leaves in the binary tree, with values 9 and 15 respectively.
 
 public class Problem_0404_SumofLeftLeaves {
 	
-	public static class TreeNode {
+	public class TreeNode {
 		int val;
 		TreeNode left;
 		TreeNode right;
@@ -28,14 +28,14 @@ public class Problem_0404_SumofLeftLeaves {
 	
 	static int sum = 0;
 	
-	public static int sumOfLeftLeaves(TreeNode root) {
+	public int sumOfLeftLeaves(TreeNode root) {
 		if (root == null) return 0;
 		dfs(root, 0);
 		return sum;
 	}
 	
 	//fPaht:记录父节点到子结点的路径——1:左孩子, -1:右孩子
-	public static void dfs(TreeNode root, int fPath) {
+	public void dfs(TreeNode root, int fPath) {
 		if (root.left == null && root.right == null && fPath == 1) {
 			sum += root.val;
 		}
@@ -48,15 +48,16 @@ public class Problem_0404_SumofLeftLeaves {
 	}
 	
 	public static void main(String[] args) {
-		TreeNode head = new TreeNode(3);
-		TreeNode headleft = new TreeNode(9);
-		TreeNode headright = new TreeNode(20);
-		TreeNode headrightleft = new TreeNode(15);
-		TreeNode headrightright = new TreeNode(7);
+		Problem_0404_SumofLeftLeaves solution = new Problem_0404_SumofLeftLeaves();
+		TreeNode head = solution.new TreeNode(3);
+		TreeNode headleft = solution.new TreeNode(9);
+		TreeNode headright = solution.new TreeNode(20);
+		TreeNode headrightleft = solution.new TreeNode(15);
+		TreeNode headrightright = solution.new TreeNode(7);
 		head.left = headleft;
 		head.right = headright;
 		headright.left = headrightleft;
 		headright.right = headrightright;
-		System.out.println(sumOfLeftLeaves(head));
+		System.out.println(solution.sumOfLeftLeaves(head));
 	}
 }
