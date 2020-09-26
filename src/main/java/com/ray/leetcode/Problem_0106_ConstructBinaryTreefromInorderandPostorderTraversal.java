@@ -51,16 +51,23 @@ public class Problem_0106_ConstructBinaryTreefromInorderandPostorderTraversal {
 		if (inL > inR) {
 			return null;
 		}
-		int rootVal = postorder[postR - 1];
+		int rootVal = postorder[postR];
 		int rootIndex = map.get(rootVal);
-		//中序左边的个数
-		int leftCount =
+		TreeNode root = new TreeNode(rootVal);
+		//中序左边的个数（不包括rootIndex位置），例如：0，1，2，3，4，5共有6个，inL初始是0，那么就是rootIndex-inL=5
+		int leftCount = rootIndex - inL;
+		//左半边
+		root.left = helper(inorder, postorder, inL, rootIndex - 1, postL, postL + leftCount - 1);
+		//右半边
+		root.right = helper(inorder, postorder, rootIndex + 1, inR, postL + leftCount, postR - 1);
+		return root;
 	}
 	
 	public static void main(String[] args) {
 		Problem_0106_ConstructBinaryTreefromInorderandPostorderTraversal solution = new Problem_0106_ConstructBinaryTreefromInorderandPostorderTraversal();
 		int[] inorder = {9, 3, 15, 20, 7};
 		int[] postorder = {9, 15, 7, 20, 3};
-		solution.buildTree(inorder, postorder);
+		TreeNode treeNode = solution.buildTree(inorder, postorder);
+		System.out.println(treeNode);
 	}
 }
