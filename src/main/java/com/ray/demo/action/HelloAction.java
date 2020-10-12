@@ -1,4 +1,4 @@
-package com.ray.demo;
+package com.ray.demo.action;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
