@@ -1,7 +1,6 @@
 package com.ray.demo.util;
 
-import com.ray.demo.model.Student;
-
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,37 +21,43 @@ public class MatchFront {
 		}
 		Map<T,V> map = new HashMap<>(list.size());
 		V v = list.get(0);
-		Class<?> clz = v.getClass();
-		String clzName = clz.getName();
+		Class<?> vClz = v.getClass();
+		Class<?> tClz = t.getClass();
+		String clzName = vClz.getName();
 		String superClzName = "";
 		
-		if (clz.getSuperclass() != null) {
-			superClzName = clz.getSuperclass().getName();
+		if (vClz.getSuperclass() != null) {
+			superClzName = vClz.getSuperclass().getName();
 		}
-		if (!"java.util.AbstractMap".equals(superClzName) && (superClzName.startsWith("java.util.") || superClzName.startsWith("java.Math."))) {
-			throw new RuntimeException("该类不是Map子类或是");
+		//如果是Map
+		if ("java.util.AbstractMap".equals(superClzName)) {
+			
+			System.out.println("这是一个map");
+			Method method;
+//			Method[] methods;
+			try {
+//				System.out.println(tClz.getName());
+//				methods = vClz.getDeclaredMethods();
+//				for (Method method1 : methods) {
+//					System.out.println(method1.getName());
+//				}
+				method = vClz.getDeclaredMethod("get", Object.class);
+				Object obj = vClz.newInstance();
+				Object o = method.invoke(obj, t);
+				System.out.println(o);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			//如果是自定义类
+		} else if ("java.lang.Object".equals(superClzName) || !superClzName.startsWith("java.")) {
+			System.out.println("这是一个自定义类");
+		} else {
+			throw new RuntimeException("该类不是Map子类或该类是java.的子类");
 		}
-		if ("java.lang.Object".equals(superClzName)) {
 		
-		}
-		System.out.println(superClzName);
-//		switch () {
-//			case :
-//
-//				break;
-//			case :
-//
-//				break;
-//			default:
-//
-//				break;
-//		}
-		
-//		if ("java.util.HashMap".equals(clzName)) {
-//			System.out.println("这是一个");
-//		} else if () {
-//
-//		} else {
+//		if ("java.lang.Object".equals(superClzName)) {
 //
 //		}
 		
@@ -60,23 +65,26 @@ public class MatchFront {
 	}
 	
 	public static void main(String[] args) {
-		Student student1 = new Student("s1", "c1", 20, 1);
-		Student student2 = new Student("s2", "c2", 21, 2);
-		Student student3 = new Student("s3", "c3", 22, 3);
-		List<Student> list = new ArrayList<>();
-		list.add(student1);
-		list.add(student2);
-		list.add(student3);
-		change("name", list);
+//		Student student1 = new Student("s1", "c1", 20, 1);
+//		Student student2 = new Student("s2", "c2", 21, 2);
+//		Student student3 = new Student("s3", "c3", 22, 3);
+//		List<Student> list = new ArrayList<>();
+//		list.add(student1);
+//		list.add(student2);
+//		list.add(student3);
+//		change("name", list);
 		
-//		Map<String,Object> map1 = new HashMap<>();
-//		Map<String,Object> map2 = new HashMap<>();
-//		Map<String,Object> map3 = new HashMap<>();
-//		List<Map> list1 = new ArrayList<>();
-//		list1.add(map1);
-//		list1.add(map2);
-//		list1.add(map3);
-//		change("name", list1);
+		Map<String,Object> map1 = new HashMap<>();
+		map1.put("map1", "map111");
+		Map<String,Object> map2 = new HashMap<>();
+		map2.put("map2", "map222");
+		Map<String,Object> map3 = new HashMap<>();
+		map3.put("map3", "map333");
+		List<Map> list1 = new ArrayList<>();
+		list1.add(map1);
+		list1.add(map2);
+		list1.add(map3);
+		change("map1", list1);
 		
 //		Object s1 = new Object();
 //		Object s2 = new Object();
