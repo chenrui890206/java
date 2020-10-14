@@ -39,7 +39,12 @@ public class Problem_1002_FindCommonCharacters {
 			String s = A[i];
 			Map<Character,Integer> map = new HashMap<>();
 			for (char c : s.toCharArray()) {
-				map.put(c, map.getOrDefault(c, 0) + 1);
+				if (i == 0) {
+					map.put(c, map.getOrDefault(c, 0) + 1);
+				} else if (total.containsKey(c)) {
+					
+				}
+				
 			}
 			for (Map.Entry<Character,Integer> entry : map.entrySet()) {
 				Character k = entry.getKey();
