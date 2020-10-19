@@ -1,7 +1,6 @@
 package com.ray.demo.util;
 
-import com.ray.demo.model.Student;
-
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Map;
  * @E-mail: 634302021@qq.com
  */
 public class MatchFront {
-	
+	private static final String HASH_MAP_NODE_NAME = "java.util.HashMap$Node";
 	public static <T, V> Map<T,V> change(T t, List<V> list) {
 		if (list == null || list.isEmpty()) {
 			return null;
@@ -32,8 +31,12 @@ public class MatchFront {
 		if (!"java.util.AbstractMap".equals(superClzName) && (superClzName.startsWith("java.util.") || superClzName.startsWith("java.Math."))) {
 			throw new RuntimeException("该类不是Map子类或是");
 		}
-		if ("java.lang.Object".equals(superClzName)) {
-		
+		if ("java.util.AbstractMap".equals(superClzName)) {
+			//获取到hashMap中内部的node的字节码
+//			Class<?> hashMapNodeClass = Class.forName(HASH_MAP_NODE_NAME);
+			Class<?> c = v.getClass();
+			Field[] allFields = c.getDeclaredFields();
+			System.out.println();
 		}
 		System.out.println(superClzName);
 //		switch () {
@@ -60,23 +63,32 @@ public class MatchFront {
 	}
 	
 	public static void main(String[] args) {
-		Student student1 = new Student("s1", "c1", 20, 1);
-		Student student2 = new Student("s2", "c2", 21, 2);
-		Student student3 = new Student("s3", "c3", 22, 3);
-		List<Student> list = new ArrayList<>();
-		list.add(student1);
-		list.add(student2);
-		list.add(student3);
-		change("name", list);
+//		Student student1 = new Student("s1", "c1", 20, 1);
+//		Student student2 = new Student("s2", "c2", 21, 2);
+//		Student student3 = new Student("s3", "c3", 22, 3);
+//		List<Student> list = new ArrayList<>();
+//		list.add(student1);
+//		list.add(student2);
+//		list.add(student3);
+//		change("name", list);
 		
-//		Map<String,Object> map1 = new HashMap<>();
-//		Map<String,Object> map2 = new HashMap<>();
-//		Map<String,Object> map3 = new HashMap<>();
-//		List<Map> list1 = new ArrayList<>();
-//		list1.add(map1);
-//		list1.add(map2);
-//		list1.add(map3);
-//		change("name", list1);
+		Map<String,Object> map1 = new HashMap<>();
+		map1.put("name", "a");
+		map1.put("age", 18);
+		map1.put("id", 1);
+		Map<String,Object> map2 = new HashMap<>();
+		map2.put("name", "b");
+		map2.put("age", 19);
+		map2.put("id", 2);
+		Map<String,Object> map3 = new HashMap<>();
+		map3.put("name", "c");
+		map3.put("age", 20);
+		map3.put("id", 3);
+		List<Map> list1 = new ArrayList<>();
+		list1.add(map1);
+		list1.add(map2);
+		list1.add(map3);
+		change("name", list1);
 		
 //		Object s1 = new Object();
 //		Object s2 = new Object();
