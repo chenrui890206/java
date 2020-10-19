@@ -1,6 +1,5 @@
 package com.ray.demo.util;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,9 @@ import java.util.Map;
  * @E-mail: 634302021@qq.com
  */
 public class MatchFront {
+	
+	private static final String HASH_MAP_NAME = "java.util.HashMap";
+	private static final String HASH_MAP_NODE_NAME = "java.util.HashMap$Node";
 	
 	public static <T, V> Map<T,V> change(T t, List<V> list) {
 		if (list == null || list.isEmpty()) {
@@ -33,22 +35,61 @@ public class MatchFront {
 		if ("java.util.AbstractMap".equals(superClzName)) {
 			
 			System.out.println("这是一个map");
+			Map map1 = (Map) v;
+			System.out.println(map1);
+			/*System.out.println(map1);
 			Method method;
-//			Method[] methods;
 			try {
-//				System.out.println(tClz.getName());
-//				methods = vClz.getDeclaredMethods();
-//				for (Method method1 : methods) {
-//					System.out.println(method1.getName());
-//				}
-				method = vClz.getDeclaredMethod("get", Object.class);
-				Object obj = vClz.newInstance();
-				Object o = method.invoke(obj, t);
-				System.out.println(o);
+				//获取到HashMap中的table字段(Field)
+				Class<?> hashMapClass = Class.forName(HASH_MAP_NAME);
+				//获取到hashMap中内部的node的字节码
+				Class<?> hashMapNodeClass = Class.forName(HASH_MAP_NODE_NAME);
+				Field[] allFields = hashMapClass.getDeclaredFields();
+				Field tableField = null;
+				for (Field var1 : allFields) {
+					if(Optional.ofNullable(var1).isPresent() && var1.getName().equals("table")){
+						tableField = var1;
+					}
+				}
+				//反射操作获取到Map中的数据
+				if(Optional.ofNullable(tableField).isPresent()){
+					if(!tableField.isAccessible()){
+						tableField.setAccessible(true);
+					}
+					//获取hashmap中的transient Entry[] table
+					Object[] nodeArr = (Object[]) tableField.get(v);
+					Optional.ofNullable(nodeArr).ifPresent(arr -> {
+						
+						Arrays.stream(arr).filter(var3 -> Optional.ofNullable(var3).isPresent()).forEach(node -> {
+							try {
+								Field keyField = hashMapNodeClass.getDeclaredField("key");     //获取node类里面的key属性
+								Field valueField = hashMapNodeClass.getDeclaredField("value");  //获取node类里面value属性
+								Field nextField = hashMapNodeClass.getDeclaredField("next");   //获取node类里面next属性
+								
+								nextField.setAccessible(true);
+								keyField.setAccessible(true);
+								valueField.setAccessible(true);
+								
+								System.out.println(keyField.get(node).toString());
+								System.out.println(valueField.get(node).toString());
+								Optional.of(node).ifPresent(x -> {
+									try {
+										System.out.println("反射获取到的node节点数据:" + "-----key:" + keyField.get(node).toString() + "----value:" + valueField.get(node).toString());
+									} catch (IllegalAccessException e) {
+										e.printStackTrace();
+									}
+								});
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						});
+						
+					});
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 			
 			//如果是自定义类
 		} else if ("java.lang.Object".equals(superClzName) || !superClzName.startsWith("java.")) {
