@@ -1,9 +1,7 @@
 package com.ray.demo.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * @Description 匹配到的放前面
@@ -34,11 +32,11 @@ public class MatchFront {
 		//如果是Map
 		if ("java.util.AbstractMap".equals(superClzName)) {
 			
-			System.out.println("这是一个map");
-			Map map1 = (Map) v;
-			System.out.println(map1);
-			/*System.out.println(map1);
-			Method method;
+//			System.out.println("这是一个map");
+//			Map map1 = (Map) v;
+//			System.out.println(map1);
+//			System.out.println(map1);
+//			Method method;
 			try {
 				//获取到HashMap中的table字段(Field)
 				Class<?> hashMapClass = Class.forName(HASH_MAP_NAME);
@@ -89,7 +87,7 @@ public class MatchFront {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-			}*/
+			}
 			
 			//如果是自定义类
 		} else if ("java.lang.Object".equals(superClzName) || !superClzName.startsWith("java.")) {
