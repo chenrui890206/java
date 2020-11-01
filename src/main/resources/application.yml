@@ -1,1 +1,5 @@
-
+spring:
+  r2dbc:
+    url: r2dbcs:mysql://localhost:3306/mydb?sslMode=DISABLED&characterEncoding=utf-8&useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&serverTimezone=GMT%2B8
+    username: root
+    password: root

@@ -1,4 +1,4 @@
-package com.ray.demo;
+package com.ray.employee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

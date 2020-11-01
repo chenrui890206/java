@@ -1,4 +1,4 @@
-package com.ray.demo;
+package com.ray.employee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
