@@ -308,10 +308,7 @@ public class ExStringUtils extends StringUtils {
 			return false;
 		}
 		String prefix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-		if ("mp4".equals(prefix) || "avi".equals(prefix) || "mp3".equals(prefix) || "rmvb".equals(prefix) || "wmv".equals(prefix) || "flv".equals(prefix) || "mov".equals(prefix) || "mkv".equals(prefix) || "asf".equals(prefix)) {
-			return true;
-		}
-		return false;
+		return "mp4".equals(prefix) || "avi".equals(prefix) || "mp3".equals(prefix) || "rmvb".equals(prefix) || "wmv".equals(prefix) || "flv".equals(prefix) || "mov".equals(prefix) || "mkv".equals(prefix) || "asf".equals(prefix);
 	}
 	
 	/**
@@ -426,7 +423,7 @@ public class ExStringUtils extends StringUtils {
 	 * 生成范围区间的边界
 	 * @param size 共多少个
 	 * @param page 每页分割多少个
-	 * @return
+	 * @return 返回开始和结束的下标list
 	 */
 	public static List<int[]> getDividedRange(int size, int page) {
 		if (size < 1 || page < 1) {
@@ -451,6 +448,6 @@ public class ExStringUtils extends StringUtils {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(getUUID());
+		System.out.println(camelToUnderline("ChenRui"));
 	}
 }
