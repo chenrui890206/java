@@ -22,6 +22,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isEmail(String email) {
+		if (StringUtils.isBlank(email)) {
+			return false;
+		}
 		Pattern pattern = Pattern.compile("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 		return pattern.matcher(email).matches();
 	}
@@ -32,6 +35,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isPhone(String str) {
+		if (StringUtils.isBlank(str)) {
+			return false;
+		}
 		Pattern p1, p2;
 		p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$");  // 验证带区号的
 		p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
@@ -97,7 +103,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean hasChinese(String str) {
-		if (isBlank(str)) return false;
+		if (StringUtils.isBlank(str)) {
+			return false;
+		}
 		for (char c : str.toCharArray()) {
 			if (hasChinese(c)) return true;// 有一个中文字符就返回
 		}
@@ -110,7 +118,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isAllChinese(String str) {
-		if (isBlank(str)) return false;
+		if (StringUtils.isBlank(str)) {
+			return false;
+		}
 		for (char c : str.toCharArray()) {
 			if (! hasChinese(c)) return false;
 		}
@@ -123,11 +133,11 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static int getChineseCount(String s) {
-		char c;
-		int chineseCount = 0;
-		if (isEmpty(s)) {
+		if (StringUtils.isBlank(s)) {
 			return 0;
 		}
+		char c;
+		int chineseCount = 0;
 		s = new String(s.getBytes(), StandardCharsets.UTF_8);
 		for (int i = 0; i < s.length(); i++) {
 			c = s.charAt(i);
@@ -144,6 +154,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String byteToBinary(byte[] bs) {
+		if (bs == null) {
+			return "";
+		}
 		char[] cs = new char[bs.length * 9];
 		for (int i = 0; i < bs.length; ++ i) {
 			byte b = bs[i];
@@ -167,6 +180,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String upperCaseAll(final String str) {
+		if (StringUtils.isBlank(str)) {
+			return "";
+		}
 		final char[] buffer = str.toCharArray();
 		for (int i = 0; i < buffer.length; i++) {
 			buffer[i] = Character.toUpperCase(buffer[i]);
@@ -180,6 +196,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String lowerCaseAll(final String str) {
+		if (StringUtils.isBlank(str)) {
+			return "";
+		}
 		final char[] buffer = str.toCharArray();
 		for (int i = 0; i < buffer.length; i++) {
 			buffer[i] = Character.toLowerCase(buffer[i]);
@@ -232,6 +251,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String htmlEncode(String txt) {
+		if (StringUtils.isBlank(txt)) {
+			return "";
+		}
 		return txt.replace("&", "&amp;").replace("&amp;amp;", "&amp;").replace("&amp;quot;", "&quot;").replace("\"", "&quot;").replace("&amp;lt;", "&lt;").replace("<", "&lt;").replace("&amp;gt;", "&gt;").replace(">", "&gt;").replace("&amp;nbsp;", "&nbsp;");
 	}
 	
@@ -250,6 +272,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isImage(String fileName) {
+		if (StringUtils.isBlank(fileName)) {
+			return false;
+		}
 		String prefix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 		if ("jpg".equals(prefix) || "jpeg".equals(prefix) || "png".equals(prefix) || "gif".equals(prefix) || "bmp".equals(prefix)) {
 			return true;
@@ -263,6 +288,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isDoc(String fileName) {
+		if (StringUtils.isBlank(fileName)) {
+			return false;
+		}
 		String prefix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 		if ("doc".equals(prefix) || "docx".equals(prefix) || "xls".equals(prefix) || "xlsx".equals(prefix) || "pdf".equals(prefix) || "txt".equals(prefix) || "ppt".equals(prefix) || "pptx".equals(prefix)) {
 			return true;
@@ -276,6 +304,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static boolean isVideo(String fileName) {
+		if (StringUtils.isBlank(fileName)) {
+			return false;
+		}
 		String prefix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 		if ("mp4".equals(prefix) || "avi".equals(prefix) || "mp3".equals(prefix) || "rmvb".equals(prefix) || "wmv".equals(prefix) || "flv".equals(prefix) || "mov".equals(prefix) || "mkv".equals(prefix) || "asf".equals(prefix)) {
 			return true;
@@ -300,6 +331,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String wordSort(String str) {
+		if (StringUtils.isBlank(str)) {
+			return "";
+		}
 		char[] chr = str.toCharArray();
 		Arrays.sort(chr);
 		return String.valueOf(chr);
@@ -321,6 +355,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String conversionSpecialCharacters(String string) {
+		if (StringUtils.isBlank(string)) {
+			return "";
+		}
 		return string.replaceAll("\\\\", "/");
 	}
 	
@@ -368,10 +405,9 @@ public class ExStringUtils extends StringUtils {
 	 * @return
 	 */
 	public static String camelToUnderline(String str) {
-		if (str == null || str.trim().isEmpty()){
+		if (StringUtils.isBlank(str)){
 			return "";
 		}
-		
 		int len = str.length();
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++) {
@@ -384,6 +420,34 @@ public class ExStringUtils extends StringUtils {
 			}
 		}
 		return sb.toString();
+	}
+	
+	/**
+	 * 生成范围区间的边界
+	 * @param size 共多少个
+	 * @param page 每页分割多少个
+	 * @return
+	 */
+	public static List<int[]> getDividedRange(int size, int page) {
+		if (size < 1 || page < 1) {
+			throw new RuntimeException("size or page < 1");
+		}
+		int batch = size / page;
+		List<int[]> list = new ArrayList<>(batch);
+		int begin = 0;
+		int end = 0;
+		for (int i = 1; i <= batch; i++) {
+			end = i * page - 1;
+			int[] arr = {begin, end};
+			list.add(arr);
+			begin = end + 1;
+		}
+		if (begin < size) {
+			end = size - 1;
+			int[] arr = {begin, end};
+			list.add(arr);
+		}
+		return list;
 	}
 	
 	public static void main(String[] args) {
