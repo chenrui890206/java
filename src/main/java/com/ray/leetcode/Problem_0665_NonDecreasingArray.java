@@ -1,9 +1,5 @@
 package com.ray.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /*
 Given an array nums with n integers, your task is to check if it could become non-decreasing by modifying at most one element.
 
@@ -37,20 +33,19 @@ public class Problem_0665_NonDecreasingArray {
         } else if (nums.length <= 2) {
             return true;
         } else {
-            boolean flag = true;
-            for (int i = 0; i < nums.length; i++) {
-                for (int j = 0; j < nums.length - 1; j++) {
-                    if (j != i && nums[j] > nums[j+1]) {
-                        System.out.println(nums[j] + "," + nums[j + 1]);
-                        flag = false;
-                        break;
+            int count = 0;
+            for (int i = 0; i < nums.length - 1; i++) {
+                if (nums[i] > nums[i + 1]) {
+                    count++;
+                    if (count >= 2) {
+                        return false;
+                    }
+                    if (i > 0 && nums[i - 1] > nums[i + 1]) {
+                        nums[i + 1] = nums[i];
                     }
                 }
-                if (flag) {
-                    return true;
-                }
             }
-            return false;
+            return true;
         }
     }
 
@@ -59,6 +54,6 @@ public class Problem_0665_NonDecreasingArray {
         int[] nums = {1, 2, 3, 1, 4, 5, 2};
         int[] nums2 = {-1, 4, 2, 3};
         int[] nums3 = {3,4,2,3};
-        System.out.println(solution.checkPossibility(nums2));
+        System.out.println(solution.checkPossibility(nums3));
     }
 }
