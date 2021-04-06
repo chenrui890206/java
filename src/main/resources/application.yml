@@ -4,8 +4,9 @@ server:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
-    max-threads: 10
     max-connections: 200
+    threads:
+      max: 10
 
 spring:
   datasource:
