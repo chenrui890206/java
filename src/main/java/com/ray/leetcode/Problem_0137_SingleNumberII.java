@@ -49,6 +49,6 @@ public class Problem_0137_SingleNumberII {
     public static void main(String[] args) {
         Problem_0137_SingleNumberII solution = new Problem_0137_SingleNumberII();
         int[] arr = {3,3,3,2,2,2,5,5,5,0,0,0,2,2};
-        solution.singleNumber(arr);
+        System.out.println(solution.singleNumber(arr));
     }
 }
