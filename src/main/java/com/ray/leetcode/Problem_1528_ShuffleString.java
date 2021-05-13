@@ -1,10 +1,5 @@
 package com.ray.leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 /*
 Given a string s and an integer array indices of the same length.
 
